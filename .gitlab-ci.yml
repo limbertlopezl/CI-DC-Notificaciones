@@ -1,0 +1,33 @@
+image: vevende/ci:latest
+
+stages:
+    - build
+    - tests
+    - deploy
+
+build:
+    stage: build
+    script:
+        - echo "etapa de build"
+        - eval $(ssh-agent -s)
+        - ssh-add <(echo "$SSH_PRIVATE_KEY")
+        - ansible-playbook -vvv -i deploy/inventory.ini deploy/build.yml
+
+
+tests:
+    stage: tests
+    script:
+        - echo "etapa de test"
+        - eval $(ssh-agent -s)
+        - ssh-add <(echo "$SSH_PRIVATE_KEY")
+        - ansible-playbook -vvv -i deploy/inventory.ini deploy/test.yml
+
+
+deploy:
+    stage: deploy
+    script:
+        - echo "etapa de deploy"
+        - eval $(ssh-agent -s)
+        - ssh-add <(echo "$SSH_PRIVATE_KEY")
+        - ansible-playbook -vvv -i deploy/inventory.ini deploy/deploy.yml
+

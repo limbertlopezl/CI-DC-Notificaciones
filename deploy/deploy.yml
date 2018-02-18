@@ -1,0 +1,13 @@
+- hosts: nombre_hots
+
+  vars:
+      TELEGRAM_CHAT_ID: "{{ lookup('env', 'TELEGRAM_CHAT_ID') }}"
+      CI_PROJECT_URL: "{{ lookup('env', 'CI_PROJECT_URL') }}"
+      GITLAB_USER_EMAIL: "{{ lookup('env', 'GITLAB_USER_EMAIL') }}"
+
+  tasks:
+      - name: Enviar Un Mensaje de la etapa Deploy
+        telegram:
+          token: 'token_telegram'
+          chat_id: idchat
+          msg: Se Desplego una nueva version Correctamente - [Usuario]({{ GITLAB_USER_EMAIL }}) - [Detalle]({{ CI_PROJECT_URL }})

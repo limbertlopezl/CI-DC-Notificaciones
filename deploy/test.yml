@@ -1,0 +1,11 @@
+- hosts: nombre_hots
+
+  vars:
+      TELEGRAM_CHAT_ID: "{{ lookup('env', 'TELEGRAM_CHAT_ID') }}"
+
+  tasks:
+      - name: Enviar Un Mensaje de la etapa Tests
+        telegram:
+          token: 'token_telegram'
+          chat_id: idchat
+          msg: Paso correctamente la etapa Test
